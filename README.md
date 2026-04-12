@@ -1,4 +1,4 @@
-# Lobar
+# Basilico
 
 API REST em Spring Boot para gerenciamento de cardapio, com foco inicial em **bebidas** e **refeicoes**.
 
