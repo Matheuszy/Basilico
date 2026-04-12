@@ -1,7 +1,7 @@
 package com.Codexsystem.Basilico.Basilico.cardapio.controller;
 
-import com.Codexsystem.Lobar.Lobar.cardapio.dto.refeicaodto.RefeicaoRequestDto;
-import com.Codexsystem.Lobar.Lobar.cardapio.dto.refeicaodto.RefeicaoResponseDto;
+import com.Codexsystem.Basilico.Basilico.cardapio.dto.RefeicaoRequestDto;
+import com.Codexsystem.Basilico.Basilico.cardapio.dto.RefeicaoResponseDto;
 import com.Codexsystem.Basilico.Basilico.cardapio.model.Refeicao;
 import com.Codexsystem.Basilico.Basilico.cardapio.services.RefeicaoService;
 import jakarta.validation.Valid;
@@ -16,7 +16,7 @@ public class RefeicaoController {
     private RefeicaoService refeicaoService;
 
     @PostMapping("/criar/refeicao")
-    public RefeicaoResponseDto criarRefeicao( @RequestBody @Valid RefeicaoRequestDto refeicaoRequestDto) {
+    public RefeicaoResponseDto criarRefeicao(@RequestBody @Valid RefeicaoRequestDto refeicaoRequestDto) {
         new RefeicaoRequestDto(
                 refeicaoRequestDto.nome(),
                 refeicaoRequestDto.descricao()
