@@ -119,16 +119,3 @@ Para executar os testes:
 ```bash
 ./mvnw test
 ```
-
-## Observacoes importantes
-
-- Os endpoints de criacao hoje retornam DTOs, mas nao persistem os dados no banco.
-- Existem validacoes na camada de servico para nome, descricao e valores monetarios.
-- Revise as migracoes Flyway antes de uso em producao (tipos/nomes de colunas e sintaxe SQL).
-
-## Proximos passos sugeridos
-
-- Integrar os endpoints de criacao com os services/repositories para persistencia real.
-- Padronizar os campos monetarios entre entidade, DTO e script SQL (`preco` x `valor`).
-- Adicionar tratamento global de excecoes com respostas HTTP consistentes.
-- Incluir testes de integracao para os endpoints REST.
