@@ -24,6 +24,9 @@ public class Cliente {
     private String email;
 
     @Column(nullable = false)
+    private String telefone;
+
+    @Column(nullable = false)
     private String senha;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
@@ -32,9 +35,10 @@ public class Cliente {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean ativo = true;
 
-    public Cliente(String nome, String email, String senha) {
+    public Cliente(String nome, String email, String telefone, String senha) {
         this.nome = nome;
         this.email = email;
+        this.telefone = telefone;
         this.senha = senha;
     }
 

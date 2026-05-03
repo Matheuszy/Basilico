@@ -8,6 +8,8 @@ public record ClienteRequestDto(
         @NotNull
         String email,
         @NotNull
+        String telefone,
+        @NotNull
         String senha
 ) {
 }

@@ -24,7 +24,7 @@ public class ClienteController {
 
     @PostMapping("/newclient")
     public void criarCliente(@RequestBody ClienteRequestDto cliente){
-        Cliente newCliente = new Cliente(cliente.nome(), cliente.email(), cliente.senha());
+        Cliente newCliente = new Cliente(cliente.nome(), cliente.email(),cliente.telefone(), cliente.senha());
         ResponseEntity.status(200).body(clienteService.criarCliente(newCliente));
     }
 
