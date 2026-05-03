@@ -59,5 +59,13 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
+    @Transactional
+    public void cancelarPedido(Long pedidoId) {
+        Pedido pedido = pedidoRepository.findById(pedidoId)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+        pedidoRepository.delete(pedido);
+    }
+
 
 }

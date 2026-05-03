@@ -1,5 +1,6 @@
 package com.Codexsystem.Basilico.Basilico.cardapio.model;
 
+import com.Codexsystem.Basilico.Basilico.cardapio.enums.StatusPedido;
 import com.Codexsystem.Basilico.Basilico.usuario.model.Cliente;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -38,6 +39,9 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status = StatusPedido.SOLICITADO;
 
     public void calcularValorTotal() {
         BigDecimal totalRefeicoes = refeicoes.stream()
