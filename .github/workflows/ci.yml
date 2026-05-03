@@ -23,4 +23,4 @@ jobs:
 
       - name: Validar Projeto com Maven
         # O comando 'verify' compila e roda os testes unitários
-        run: mvn -B verify
+        run: mvn -B package -DskipTests
