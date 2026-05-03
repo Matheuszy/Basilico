@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,18 +28,22 @@ public class Cliente {
     private String senha;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Pedido> pedido;
+    private List<Pedido> pedido = new ArrayList<>();
 
-    @Column(nullable = false)
-    private Boolean ativo;
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean ativo = true;
 
-    public Cliente(String nome, String email, String senha, List<Pedido> pedido) {
+    public Cliente(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.pedido = pedido;
     }
 
     public Cliente() {
+    }
+
+    public void criarPedido(Pedido novoPedido) {
+        this.pedido.add(novoPedido);
+        novoPedido.setCliente(this);
     }
 }
