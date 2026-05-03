@@ -3,6 +3,7 @@ package com.Codexsystem.Basilico.Basilico.catalog.services;
 
 import com.Codexsystem.Basilico.Basilico.catalog.model.Refeicao;
 import com.Codexsystem.Basilico.Basilico.catalog.repository.RefeicaoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ public class RefeicaoService {
     @Autowired
     private RefeicaoRepository refeicaoRepository;
 
+    @Transactional
     public Refeicao criarRefeicao(Refeicao refeicao) {
         if (refeicao.getNome() == null || refeicao.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("O nome da refeição não pode ser nulo ou vazio.");

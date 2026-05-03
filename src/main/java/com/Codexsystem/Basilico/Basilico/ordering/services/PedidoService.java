@@ -66,5 +66,15 @@ public class PedidoService {
         pedidoRepository.delete(pedido);
     }
 
+    public Pedido buscarPedidoPorId(Long pedidoId) {
+        return pedidoRepository.findById(pedidoId)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+    }
 
+    public List<Pedido> buscarPedidosPorCliente(Integer clienteId) {
+        Cliente cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        return List.of();
+    }
 }

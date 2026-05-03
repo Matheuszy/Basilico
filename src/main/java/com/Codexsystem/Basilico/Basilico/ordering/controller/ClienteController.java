@@ -22,12 +22,6 @@ public class ClienteController {
         return clienteService.obterClientes();
     }
 
-    @GetMapping("/{}")
-    public ClienteResponseDto obterClientePorId(@RequestParam("id") Integer id){
-        Cliente clienteId = clienteService.obterClientePorId(id);
-        return new ClienteResponseDto(clienteId.getNome(), clienteId.getPedido());
-    }
-
     @PostMapping("/newclient")
     public void criarCliente(@RequestBody ClienteRequestDto cliente){
         Cliente newCliente = new Cliente(cliente.nome(), cliente.email(), cliente.senha());

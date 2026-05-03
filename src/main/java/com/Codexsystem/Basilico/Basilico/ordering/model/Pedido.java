@@ -55,4 +55,12 @@ public class Pedido {
 
         this.valorTotal = totalRefeicoes.add(totalBebidas);
     }
+
+    public Pedido(){}
+
+    public Pedido(List<Refeicao> refeicao, List<Bebida> bebida) {
+        this.refeicoes = refeicao;
+        this.bebidas = bebida;
+
+    }
 }

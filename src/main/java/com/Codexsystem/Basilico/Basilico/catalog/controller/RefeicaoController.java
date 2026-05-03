@@ -17,14 +17,10 @@ public class RefeicaoController {
 
     @PostMapping("/criar/refeicao")
     public RefeicaoResponseDto criarRefeicao(@RequestBody @Valid RefeicaoRequestDto refeicaoRequestDto) {
-        new RefeicaoRequestDto(
-                refeicaoRequestDto.nome(),
-                refeicaoRequestDto.descricao()
-        );
-        return new RefeicaoResponseDto(
-                refeicaoRequestDto.nome(),
-                refeicaoRequestDto.descricao()
-        );
+        Refeicao newRefeicao = new Refeicao(refeicaoRequestDto.nome(), refeicaoRequestDto.descricao(), refeicaoRequestDto.preco());
+        refeicaoService.criarRefeicao(newRefeicao);
+
+        return new RefeicaoResponseDto(newRefeicao.getNome(), newRefeicao.getDescricao());
     }
 
     @GetMapping("/obter/refeicao")
