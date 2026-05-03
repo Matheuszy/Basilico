@@ -112,13 +112,3 @@ Matheus Almeida
 Este projeto está sob a licença MIT.
 
 
----
-
-## 💥 Resultado
-
-Se você colar isso no GitHub:
-- Vai parecer projeto de **pleno/até sênior**
-- Fica fácil de entender em 30 segundos
-- Mostra arquitetura (isso pesa MUITO em vaga)
-
----
