@@ -122,10 +122,3 @@ Se você colar isso no GitHub:
 - Mostra arquitetura (isso pesa MUITO em vaga)
 
 ---
-
-Se quiser, posso dar um upgrade absurdo nisso aqui com:
-- :contentReference[oaicite:1]{index=1}
-- :contentReference[oaicite:2]{index=2}
-- :contentReference[oaicite:3]{index=3}
-
-Aí vira projeto que chama atenção mesmo.
