@@ -1,5 +1,6 @@
 package com.Codexsystem.Basilico.Basilico.configuration.security;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -20,7 +21,9 @@ public class SecurityConfig {
     public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(auth -> auth
+                        .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers("/user").permitAll()
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/refeicao/criar/refeicao").hasRole("ADMIN")
