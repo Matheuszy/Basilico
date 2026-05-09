@@ -1,6 +1,7 @@
 package com.Codexsystem.Basilico.Basilico.catalog.services;
 
 
+import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Refeicao;
 import com.Codexsystem.Basilico.Basilico.catalog.repository.RefeicaoRepository;
 import jakarta.transaction.Transactional;
@@ -28,6 +29,30 @@ public class RefeicaoService {
             
         }
         return refeicaoRepository.save(refeicao);
+    }
+
+    public Refeicao updateRefeicao(Long id, Refeicao refeicao) {
+        Refeicao refeicaExistente = refeicaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bebida com ID " + id + " não encontrada."));
+
+        if (refeicao.getNome() != null && !refeicao.getNome().trim().isEmpty()) {
+            if (!refeicao.getNome().matches("^[a-zA-Z0-9 ]+$")) {
+                throw new IllegalArgumentException("O nome da bebida deve conter apenas letras, números e espaços.");
+            }
+            refeicaExistente.setNome(refeicao.getNome());
+        }
+
+        if (refeicao.getValor() != null) {
+            if (refeicao.getValor().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
+                throw new RuntimeException("O preço da bebida deve ser maior que zero.");
+            }
+            refeicaExistente.setValor(refeicao.getValor());
+        }
+
+        if (refeicao.getDescricao() != null && !refeicao.getDescricao().trim().isEmpty()) {
+            refeicaExistente.setDescricao(refeicao.getDescricao());
+        }
+        return refeicaoRepository.save(refeicaExistente);
     }
     
     public Refeicao obterRefeicaoPorId(Long id) {

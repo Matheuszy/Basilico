@@ -28,6 +28,31 @@ public class BebidaService {
         return bebidaRepository.save(bebida);
     }
 
+    public Bebida updateBebida(Long id, Bebida bebidaAtualizada) {
+        Bebida bebidaExistente = bebidaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bebida com ID " + id + " não encontrada."));
+
+        if (bebidaAtualizada.getNome() != null && !bebidaAtualizada.getNome().trim().isEmpty()) {
+            if (!bebidaAtualizada.getNome().matches("^[a-zA-Z0-9 ]+$")) {
+                throw new IllegalArgumentException("O nome da bebida deve conter apenas letras, números e espaços.");
+            }
+            bebidaExistente.setNome(bebidaAtualizada.getNome());
+        }
+
+        if (bebidaAtualizada.getPreco() != null) {
+            if (bebidaAtualizada.getPreco().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
+                throw new RuntimeException("O preço da bebida deve ser maior que zero.");
+            }
+            bebidaExistente.setPreco(bebidaAtualizada.getPreco());
+        }
+
+        if (bebidaAtualizada.getDescricao() != null && !bebidaAtualizada.getDescricao().trim().isEmpty()) {
+            bebidaExistente.setDescricao(bebidaAtualizada.getDescricao());
+        }
+
+        return bebidaRepository.save(bebidaExistente);
+    }
+
      public Bebida obterBebidaPorId(Long id) {
          return bebidaRepository.findById(id).orElse(null);
      }

@@ -42,4 +42,15 @@ public class BebidaController {
     public void deleteBebida(@RequestParam @Valid Long id) {
         bebidaService.deletarBebida(id);
     }
+
+    @PatchMapping("update/bebida")
+    public BebidaResponseDto updateBebida(@RequestParam @Valid Long id, @RequestBody BebidaRequestDto bebidaRequestDto) {
+        var bebida = bebidaService.obterBebidaPorId(id);
+        bebida.setNome(bebidaRequestDto.nome());
+        bebida.setDescricao(bebidaRequestDto.descricao());
+        bebida.setPreco(bebidaRequestDto.valor());
+        bebidaService.updateBebida(id, bebida);
+
+        return new BebidaResponseDto(bebida.getNome(), bebida.getDescricao());
+    }
 }
