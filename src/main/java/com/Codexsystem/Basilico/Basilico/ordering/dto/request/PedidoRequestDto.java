@@ -1,11 +1,8 @@
-package com.Codexsystem.Basilico.Basilico.ordering.dto;
+package com.Codexsystem.Basilico.Basilico.ordering.dto.request;
 
-import com.Codexsystem.Basilico.Basilico.catalog.dto.BebidaResponseDto;
-import com.Codexsystem.Basilico.Basilico.catalog.dto.RefeicaoResponseDto;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Refeicao;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public record PedidoRequestDto(

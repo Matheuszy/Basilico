@@ -1,7 +1,7 @@
 package com.Codexsystem.Basilico.Basilico.ordering.controller;
 
-import com.Codexsystem.Basilico.Basilico.ordering.dto.PedidoRequestDto;
-import com.Codexsystem.Basilico.Basilico.ordering.dto.PedidoResponseDto;
+import com.Codexsystem.Basilico.Basilico.ordering.dto.request.PedidoRequestDto;
+import com.Codexsystem.Basilico.Basilico.ordering.dto.response.PedidoResponseDto;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Pedido;
 import com.Codexsystem.Basilico.Basilico.ordering.repository.PedidoRepository;
 import com.Codexsystem.Basilico.Basilico.ordering.services.PedidoService;

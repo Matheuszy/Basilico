@@ -1,4 +1,4 @@
-package com.Codexsystem.Basilico.Basilico.catalog.dto;
+package com.Codexsystem.Basilico.Basilico.catalog.dto.response;
 
 public record BebidaResponseDto(
         String nome,

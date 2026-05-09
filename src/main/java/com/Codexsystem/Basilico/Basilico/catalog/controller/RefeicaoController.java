@@ -1,7 +1,7 @@
 package com.Codexsystem.Basilico.Basilico.catalog.controller;
 
-import com.Codexsystem.Basilico.Basilico.catalog.dto.RefeicaoRequestDto;
-import com.Codexsystem.Basilico.Basilico.catalog.dto.RefeicaoResponseDto;
+import com.Codexsystem.Basilico.Basilico.catalog.dto.request.RefeicaoRequestDto;
+import com.Codexsystem.Basilico.Basilico.catalog.dto.response.RefeicaoResponseDto;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Refeicao;
 import com.Codexsystem.Basilico.Basilico.catalog.services.RefeicaoService;
 import jakarta.validation.Valid;

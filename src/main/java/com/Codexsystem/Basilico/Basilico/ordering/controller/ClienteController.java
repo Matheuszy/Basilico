@@ -1,7 +1,6 @@
 package com.Codexsystem.Basilico.Basilico.ordering.controller;
 
-import com.Codexsystem.Basilico.Basilico.ordering.dto.ClienteRequestDto;
-import com.Codexsystem.Basilico.Basilico.ordering.dto.ClienteResponseDto;
+import com.Codexsystem.Basilico.Basilico.ordering.dto.request.ClienteRequestDto;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Cliente;
 import com.Codexsystem.Basilico.Basilico.ordering.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;

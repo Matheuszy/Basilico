@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -43,8 +43,4 @@ public class UsuarioService implements UserDetailsService {
         usuarioRepository.deleteByUsername(username);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return User.withUsername(username).password("").roles("USER").build();
-    }
 }

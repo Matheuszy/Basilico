@@ -1,8 +1,8 @@
 package com.Codexsystem.Basilico.Basilico.management.controller;
 
 
-import com.Codexsystem.Basilico.Basilico.management.dto.RegisterRequestDto;
-import com.Codexsystem.Basilico.Basilico.management.dto.RegisterResponseDto;
+import com.Codexsystem.Basilico.Basilico.management.dto.request.RegisterRequestDto;
+import com.Codexsystem.Basilico.Basilico.management.dto.response.RegisterResponseDto;
 import com.Codexsystem.Basilico.Basilico.management.model.Usuario;
 import com.Codexsystem.Basilico.Basilico.management.services.UsuarioService;
 import jakarta.validation.Valid;

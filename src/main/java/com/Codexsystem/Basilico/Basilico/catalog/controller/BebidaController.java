@@ -1,7 +1,7 @@
 package com.Codexsystem.Basilico.Basilico.catalog.controller;
 
-import com.Codexsystem.Basilico.Basilico.catalog.dto.BebidaRequestDto;
-import com.Codexsystem.Basilico.Basilico.catalog.dto.BebidaResponseDto;
+import com.Codexsystem.Basilico.Basilico.catalog.dto.request.BebidaRequestDto;
+import com.Codexsystem.Basilico.Basilico.catalog.dto.response.BebidaResponseDto;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
 import com.Codexsystem.Basilico.Basilico.catalog.services.BebidaService;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.Codexsystem.Basilico.Basilico.ordering.dto;
+package com.Codexsystem.Basilico.Basilico.ordering.dto.response;
 
 import com.Codexsystem.Basilico.Basilico.ordering.model.Pedido;
 
