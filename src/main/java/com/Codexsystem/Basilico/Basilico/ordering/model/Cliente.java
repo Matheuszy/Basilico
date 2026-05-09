@@ -1,17 +1,18 @@
 package com.Codexsystem.Basilico.Basilico.ordering.model;
 
+import com.Codexsystem.Basilico.Basilico.configuration.role.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.Setter;import org.jspecify.annotations.Nullable;import org.springframework.security.core.GrantedAuthority;import org.springframework.security.core.authority.SimpleGrantedAuthority;import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "clientes")
-public class Cliente {
+public class Cliente implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +36,9 @@ public class Cliente {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean ativo = true;
 
+    @Column(nullable = false)
+    private Role role = Role.CLIENTE;
+
     public Cliente(String nome, String email, String telefone, String senha) {
         this.nome = nome;
         this.email = email;
@@ -49,4 +53,13 @@ public class Cliente {
         this.pedido.add(novoPedido);
         novoPedido.setCliente(this);
     }
-}
+@Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.toString()));
+    }@Override
+    public @Nullable String getPassword() {
+        return "";
+    }@Override
+    public String getUsername() {
+        return "";
+    }}

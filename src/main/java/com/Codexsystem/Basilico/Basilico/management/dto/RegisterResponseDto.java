@@ -1,6 +1,6 @@
 package com.Codexsystem.Basilico.Basilico.management.dto;
 
-public record UsuarioResponseDto(
+public record RegisterResponseDto(
         String username, String email
 ) {
 }

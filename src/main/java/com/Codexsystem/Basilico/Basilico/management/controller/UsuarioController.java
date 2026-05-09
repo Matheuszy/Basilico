@@ -1,8 +1,8 @@
 package com.Codexsystem.Basilico.Basilico.management.controller;
 
 
-import com.Codexsystem.Basilico.Basilico.management.dto.UsuarioRequestDto;
-import com.Codexsystem.Basilico.Basilico.management.dto.UsuarioResponseDto;
+import com.Codexsystem.Basilico.Basilico.management.dto.RegisterRequestDto;
+import com.Codexsystem.Basilico.Basilico.management.dto.RegisterResponseDto;
 import com.Codexsystem.Basilico.Basilico.management.model.Usuario;
 import com.Codexsystem.Basilico.Basilico.management.services.UsuarioService;
 import jakarta.validation.Valid;
@@ -13,24 +13,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/user")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
     @GetMapping
-    public UsuarioResponseDto findByUsername(@RequestParam("username") String username) {
+    public RegisterResponseDto findByUsername(@RequestParam("username") String username) {
         Optional<Usuario> usuarioOpt = usuarioService.findByUsername(username);
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
-            return new UsuarioResponseDto(usuario.getUsername(), usuario.getEmail());
+            return new RegisterResponseDto(usuario.getUsername(), usuario.getEmail());
         } else {
             throw new RuntimeException("Usuário não encontrado");
         }
     }
 
-    @PostMapping("/createuser")
-    public Usuario createUser(@RequestBody @Valid UsuarioRequestDto usuarioRequestDto) {
+    @PostMapping("/create")
+    public Usuario createUser(@RequestBody @Valid RegisterRequestDto usuarioRequestDto) {
         Usuario usuario = new Usuario(usuarioRequestDto.username(),
                 usuarioRequestDto.email(),
                 usuarioRequestDto.password());
@@ -39,7 +39,7 @@ public class UsuarioController {
         return ResponseEntity.status(201).body(usuario).getBody();
     }
 
-    @DeleteMapping("/deleteuser")
+    @DeleteMapping("/deleteu")
     public void deleteUser(@RequestParam("username") String username) {
         usuarioService.deleteByUsername(username);
     }

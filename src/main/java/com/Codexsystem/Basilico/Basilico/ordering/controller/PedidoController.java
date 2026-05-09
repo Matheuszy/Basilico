@@ -3,7 +3,7 @@ package com.Codexsystem.Basilico.Basilico.ordering.controller;
 import com.Codexsystem.Basilico.Basilico.ordering.dto.PedidoRequestDto;
 import com.Codexsystem.Basilico.Basilico.ordering.dto.PedidoResponseDto;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Pedido;
-import com.Codexsystem.Basilico.Basilico.ordering.services.PedidoService;
+import com.Codexsystem.Basilico.Basilico.ordering.repository.PedidoRepository;import com.Codexsystem.Basilico.Basilico.ordering.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +16,9 @@ public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
     @GetMapping
     public List<Pedido> buscarPedidosPorCliente(Integer clienteId) {
         return pedidoService.buscarPedidosPorCliente(clienteId);
@@ -26,9 +29,8 @@ public class PedidoController {
         return pedidoService.buscarPedidoPorId(pedidoId);
     }
 
-    @PostMapping("/createorder")
+    @PostMapping("/create/order")
     public PedidoResponseDto createPedido(@RequestBody PedidoRequestDto dto) {
-        // Agora você tem o ID para passar ao Service
         Pedido pedidoSalvo = pedidoService.criarPedido(
                 dto.clienteId(),
                 dto.bebidas(),
@@ -40,5 +42,12 @@ public class PedidoController {
                 pedidoSalvo.getBebidas(),
                 pedidoSalvo.getValorTotal()
         );
+    }
+
+    @DeleteMapping("/delete/order/{id}")
+    public void deletePedido(@PathVariable("id") Long pedidoId) {
+            pedidoService.cancelarPedido(pedidoId);
+
+
     }
 }

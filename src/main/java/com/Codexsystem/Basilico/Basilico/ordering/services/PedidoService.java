@@ -1,6 +1,7 @@
 package com.Codexsystem.Basilico.Basilico.ordering.services;
 
 import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
+import com.Codexsystem.Basilico.Basilico.ordering.enums.StatusPedido;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Pedido;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Refeicao;
 import com.Codexsystem.Basilico.Basilico.ordering.repository.PedidoRepository;
@@ -63,7 +64,14 @@ public class PedidoService {
         Pedido pedido = pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
 
-        pedidoRepository.delete(pedido);
+        if (pedido.getStatus() == StatusPedido.ENTREGUE) {
+            throw new RuntimeException("Pedido já está foi entregue");
+        } else if (pedido.getStatus() == StatusPedido.CANCELADO) {
+            throw new RuntimeException("Pedido já está cancelado");
+        } else {
+            pedido.setStatus(StatusPedido.CANCELADO);
+            pedidoRepository.save(pedido);
+        }
     }
 
     public Pedido buscarPedidoPorId(Long pedidoId) {

@@ -3,5 +3,6 @@ CREATE TABLE IF NOT EXISTS usuario (
     username VARCHAR(30) UNIQUE,
     email VARCHAR(50) UNIQUE,
     password VARCHAR(150),
+    role VARCHAR(20) NOT NULL
 
 );

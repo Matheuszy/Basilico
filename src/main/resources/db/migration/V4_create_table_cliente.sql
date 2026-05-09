@@ -3,5 +3,6 @@ CREATE TABLE IF NOT EXISTIS cliente (
     nome VARCHAR(50) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
     telefone VARCHAR(20) NOT NULL,
+    role VARCHAR(20) NOT NULL
 
 )

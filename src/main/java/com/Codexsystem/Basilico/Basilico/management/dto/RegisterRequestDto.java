@@ -2,7 +2,7 @@ package com.Codexsystem.Basilico.Basilico.management.dto;
 
 import jakarta.validation.constraints.NotNull;
 
-public record UsuarioRequestDto(
+public record RegisterRequestDto(
         @NotNull
         String username,
         @NotNull
