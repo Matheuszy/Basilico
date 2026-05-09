@@ -64,8 +64,54 @@ Administração do sistema e controle de acesso
 ---
 
 ## 📁 Estrutura do Projeto
-src/main/java/com/Codexsystem/Basilico/Basilico/ │ ├── catalog/ │ ├── controller/ # BebidaController, RefeicaoController │ ├── dto/ # BebidaRequestDto, BebidaResponseDto, etc. │ ├── model/ # Bebida, Refeicao (JPA entities) │ ├── repository/ # BebidaRepository, RefeicaoRepository │ └── services/ # BebidaService, RefeicaoService │ ├── ordering/ │ ├── controller/ # PedidoController, ClienteController │ ├── dto/ # PedidoRequestDto, PedidoResponseDto, etc. │ ├── enums/ # StatusPedido, StatusPagamento │ ├── model/ # Pedido, Cliente (JPA entities) │ ├── repository/ # PedidoRepository, ClienteRepository │ └── services/ # PedidoService, ClienteService │ ├── management/ │ ├── controller/ # UsuarioController │ ├── dto/ # RegisterRequestDto, RegisterResponseDto │ ├── model/ # Usuario (JPA entity com UserDetails) │ ├── repository/ # UsuarioRepository │ └── services/ # UsuarioService │ └── configuration/ └── security/ # SecurityConfig (filtros, roles, autorização)
-src/main/resources/ │ ├── application.properties # Configurações do banco, segurança └── db/migration/ ├── V1_create_table_bebida.sql ├── V2_create_table_refeicao.sql ├── V3_create_table_usuario.sql ├── V4_create_table_cliente.sql ├── V5_create_table_pedido.sql └── V6_add_role_to_usuario.sql
+src/main/java/com/codexsystem/basilico/
+
+├── BasilicoApplication.java
+
+├── domain/                    # Regras de negócio puras (sem Spring)
+│   ├── catalog/
+│   │   ├── model/
+│   │   └── enums/
+│   │
+│   ├── ordering/
+│   │   └── model/
+│   │
+│   └── user/
+│       └── model/
+
+├── application/                # Casos de uso (services)
+│   ├── catalog/
+│   ├── ordering/
+│   └── user/
+
+├── infrastructure/             # Implementações técnicas
+│   ├── persistence/
+│   │   ├── catalog/
+│   │   ├── ordering/
+│   │   └── user/
+│   │
+│   ├── security/
+│   │   ├── SecurityConfig.java
+│   │   └── JwtFilter.java
+│   │
+│   └── configuration/
+
+├── interfaces/                 # Camada de entrada (API REST)
+│   ├── catalog/
+│   │   └── controller/
+│   │
+│   ├── ordering/
+│   │   └── controller/
+│   │
+│   └── user/
+│       └── controller/
+│
+│   └── dto/
+│
+└── shared/                     # Código reutilizável
+├── exception/
+├── mapper/
+└── utils/ation/ ├── V1_create_table_bebida.sql ├── V2_create_table_refeicao.sql ├── V3_create_table_usuario.sql ├── V4_create_table_cliente.sql ├── V5_create_table_pedido.sql └── V6_add_role_to_usuario.sql
 
 ---
 
@@ -96,122 +142,38 @@ A aplicação usa `@PreAuthorize` em endpoints críticos para validar roles:
 ````
 
 📡 Endpoints
-🔑 Autenticação
-Método
-Endpoint
-Autenticação
-Descrição
-POST
-/user/create
-❌
-Registrar novo usuário
-POST
-/auth/login
-❌
-Login (HTTP Basic)
-
 
 🍱 Catálogo - Refeições (/refeicao)
-Método
-Endpoint
-Role
-Descrição
-POST
-/criar/refeicao
-ADMIN
-Criar refeição
-GET
-/obter/refeicao?nome=X
-❌
-Buscar por nome
-GET
-/obter/{id}
-❌
-Buscar por ID
-PATCH
-/update/refeicao?id=X
-ADMIN
-Atualizar refeição
-DELETE
-/delete/refeicao?id=X
-ADMIN
-Deletar refeição
+POST   /api/v1/refeicoes        (ADMIN)
+GET    /api/v1/refeicoes        (pode ter filtro ?nome=)
+GET    /api/v1/refeicoes/{id}
+PUT    /api/v1/refeicoes/{id}   (ADMIN)
+DELETE /api/v1/refeicoes/{id}   (ADMIN)
 
 🥤 Catálogo - Bebidas (/bebida)
-Método
-Endpoint
-Role
-Descrição
-POST
-/criar/bebida
-ADMIN
-Criar bebida
-GET
-/obter/bebida?nome=X
-❌
-Buscar por nome
-GET
-/obter/{id}
-❌
-Buscar por ID
-PATCH
-/update/bebida?id=X
-ADMIN
-Atualizar bebida
-DELETE
-/delete/bebida?id=X
-ADMIN
-Deletar bebida
+POST   /api/v1/bebidas          (ADMIN)
+GET    /api/v1/bebidas
+GET    /api/v1/bebidas/{id}
+PUT    /api/v1/bebidas/{id}     (ADMIN)
+DELETE /api/v1/bebidas/{id}     (ADMIN)
 
 🛒 Pedidos (/pedidos)
-Método
-Endpoint
-Role
-Descrição
-GET
-/?clienteId=X
-ADMIN, USER
-Listar pedidos de um cliente
-GET
-/{id}?clienteId=X
-ADMIN, USER
-Buscar pedido específico
-POST
-/create/order
-USER
-Criar novo pedido
-DELETE
-/delete/order/{id}
-ADMIN, USER
-Cancelar pedido (soft delete)
+POST   /api/v1/pedidos              (USER)
+GET    /api/v1/pedidos?clienteId=X  (ADMIN/USER)
+GET    /api/v1/pedidos/{id}         (ADMIN/USER)
+DELETE /api/v1/pedidos/{id}         (soft delete)
 
 👤 Clientes (/client)
-Método
-Endpoint
-Descrição
-POST
-/newclient
-Criar novo cliente
-GET
-/
-Listar todos os clientes
-DELETE
-/deleteclient?id=X
-Deletar cliente
+POST   /api/v1/clientes
+GET    /api/v1/clientes
+GET    /api/v1/clientes/{id}
+DELETE /api/v1/clientes/{id}
 
 👨‍💼 Usuários (/user)
-Método
-Endpoint
-Descrição
-POST
-/create
-Criar novo usuário com role
-GET
-/?username=X
-Buscar usuário por username
-DELETE
-/deleteu?username=X
-Deletar usuário
+POST   /api/v1/usuarios
+GET    /api/v1/usuarios?username=X
+GET    /api/v1/usuarios/{id}
+DELETE /api/v1/usuarios/{id}
 
 🔄 Fluxo de Status do Pedido
 
@@ -284,8 +246,8 @@ Authorization: Basic joao:senha123
 ⚙️ Configuração Local
 # Banco de dados
 spring.datasource.url=jdbc:postgresql://localhost:5432/basilico
-spring.datasource.username=seu_usuario
-spring.datasource.password=sua_senha
+spring.datasource.username=SEU_USUARIO
+spring.datasource.password=SUA_SENHA
 spring.datasource.driver-class-name=org.postgresql.Driver
 
 # JPA / Hibernate
@@ -306,7 +268,10 @@ spring.flyway.baselineOnMigrate=true
 java -jar target/Basilico-0.0.1-SNAPSHOT.jar
 
 👨‍💻 Autor
+
 Matheus Almeida
 
+
 📄 Licença
+
 Este projeto está sob a licença MIT.
