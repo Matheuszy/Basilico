@@ -45,4 +45,11 @@ public class RefeicaoService {
         return refeicaoRepository.findByNome(nome);
     }
 
+    public void deletarRefeicao(Long id) {
+        if (!refeicaoRepository.existsById(id)) {
+            throw new RuntimeException("Refeição não encontrada para exclusão.");
+        }
+        refeicaoRepository.deleteById(id);
+    }
+
 }

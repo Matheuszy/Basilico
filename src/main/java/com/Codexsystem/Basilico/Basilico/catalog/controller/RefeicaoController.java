@@ -37,4 +37,9 @@ public class RefeicaoController {
        return new RefeicaoResponseDto(refeicao.getNome(), refeicao.getDescricao());
     }
 
+    @DeleteMapping("/delete/refeicao")
+    public void deleteRefeicao(@RequestParam @Valid Long id) {
+        refeicaoService.deletarRefeicao(id);
+    }
+
 }

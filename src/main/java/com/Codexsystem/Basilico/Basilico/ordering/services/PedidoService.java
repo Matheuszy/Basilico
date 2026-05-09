@@ -79,10 +79,12 @@ public class PedidoService {
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
     }
 
-    public List<Pedido> buscarPedidosPorCliente(Integer clienteId) {
-        Cliente cliente = clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    public Pedido buscarPedidoDoCliente(Long pedidoId, Integer clienteId) {
+        return pedidoRepository.findPedidoCompletoPorIdECliente(pedidoId, clienteId)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+    }
 
-        return List.of();
+    public List<Pedido> listarPedidosDoCliente(Integer clienteId) {
+        return pedidoRepository.findPedidosPorClienteId(clienteId);
     }
 }

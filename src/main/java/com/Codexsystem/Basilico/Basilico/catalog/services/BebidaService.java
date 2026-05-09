@@ -41,4 +41,12 @@ public class BebidaService {
         return bebidaRepository.findBebidaByNome(nome);
      }
 
+     public void deletarBebida(Long id) {
+        if (bebidaRepository.existsById(id)) {
+            bebidaRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Bebida com ID " + id + " não encontrada.");
+        }
+     }
+
 }
