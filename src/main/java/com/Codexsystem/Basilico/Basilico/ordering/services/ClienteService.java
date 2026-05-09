@@ -16,10 +16,6 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente obterClientePorId(Integer id) {
-        return clienteRepository.findById(id).orElse(null);
-    }
-
     public List<Cliente> obterClientes() {
         return clienteRepository.findAll();
     }
