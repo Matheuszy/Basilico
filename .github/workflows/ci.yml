@@ -22,5 +22,5 @@ jobs:
           cache: maven
 
       - name: Validar Projeto com Maven
-        # O comando 'verify' compila e roda os testes unitários
-        run: mvn -B package -DskipTests
+        
+        run: mvn -B package
