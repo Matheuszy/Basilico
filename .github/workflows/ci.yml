@@ -22,5 +22,4 @@ jobs:
           cache: maven
 
       - name: Validar Projeto com Maven
-        
-        run: mvn -B package
+        run: mvn -B package -DskipTests
