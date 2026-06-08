@@ -48,7 +48,7 @@ public class BebidaController {
         var bebida = bebidaService.obterBebidaPorId(id);
         bebida.setNome(bebidaRequestDto.nome());
         bebida.setDescricao(bebidaRequestDto.descricao());
-        bebida.setPreco(bebidaRequestDto.valor());
+        bebida.setValor(bebidaRequestDto.valor());
         bebidaService.updateBebida(id, bebida);
 
         return new BebidaResponseDto(bebida.getNome(), bebida.getDescricao());

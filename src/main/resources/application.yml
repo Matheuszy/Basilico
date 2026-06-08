@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+
+  # Configurações do Flyway
+  flyway:
+    locations: classpath:db/migration
+    baseline-on-migrate: true

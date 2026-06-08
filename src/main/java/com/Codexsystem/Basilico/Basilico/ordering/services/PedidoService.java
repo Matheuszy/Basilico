@@ -64,12 +64,12 @@ public class PedidoService {
         Pedido pedido = pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
 
-        if (pedido.getStatus() == StatusPedido.ENTREGUE) {
+        if (pedido.getStatusPedido() == StatusPedido.ENTREGUE) {
             throw new RuntimeException("Pedido já está foi entregue");
-        } else if (pedido.getStatus() == StatusPedido.CANCELADO) {
+        } else if (pedido.getStatusPedido() == StatusPedido.CANCELADO) {
             throw new RuntimeException("Pedido já está cancelado");
         } else {
-            pedido.setStatus(StatusPedido.CANCELADO);
+            pedido.setStatusPedido(StatusPedido.CANCELADO);
             pedidoRepository.save(pedido);
         }
     }

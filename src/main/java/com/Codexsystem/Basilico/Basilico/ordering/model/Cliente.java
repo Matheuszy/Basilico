@@ -36,6 +36,7 @@ public class Cliente implements UserDetails {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean ativo = true;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.CLIENTE;
 

@@ -1,5 +1,6 @@
 package com.Codexsystem.Basilico.Basilico.ordering.model;
 
+import com.Codexsystem.Basilico.Basilico.ordering.enums.StatusPagamento;
 import com.Codexsystem.Basilico.Basilico.ordering.enums.StatusPedido;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Refeicao;
@@ -42,7 +43,12 @@ public class Pedido {
     private Cliente cliente;
 
     @Enumerated(EnumType.STRING)
-    private StatusPedido status = StatusPedido.SOLICITADO;
+    @Column(name = "status_pedido", nullable = false)
+    private StatusPedido statusPedido = StatusPedido.SOLICITADO;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_pagamento", nullable = false)
+    private StatusPagamento statusPagamento = StatusPagamento.PENDENTE;
 
     public void calcularValorTotal() {
         BigDecimal totalRefeicoes = refeicoes.stream()
@@ -50,7 +56,7 @@ public class Pedido {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         BigDecimal totalBebidas = bebidas.stream()
-                .map(Bebida::getPreco)
+                .map(Bebida::getValor)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         this.valorTotal = totalRefeicoes.add(totalBebidas);

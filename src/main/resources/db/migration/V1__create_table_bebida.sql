@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS bebidas (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    valor DECIMAL(10, 2) NOT NULL
+);
