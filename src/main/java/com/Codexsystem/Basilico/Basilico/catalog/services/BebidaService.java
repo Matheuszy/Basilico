@@ -17,7 +17,7 @@ public class BebidaService {
             throw new IllegalArgumentException("O nome da bebida não pode ser nulo ou vazio.");
         } else if (!bebida.getNome().matches("^[a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException("O nome da bebida deve conter apenas letras, números e espaços.");
-        } else if (bebida.getPreco() == null || bebida.getPreco().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
+        } else if (bebida.getValor() == null || bebida.getValor().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
             throw new RuntimeException("O preço da bebida deve ser maior que zero.");
 
         } else if (bebida.getDescricao() == null || bebida.getDescricao().trim().isEmpty()) {
@@ -39,11 +39,11 @@ public class BebidaService {
             bebidaExistente.setNome(bebidaAtualizada.getNome());
         }
 
-        if (bebidaAtualizada.getPreco() != null) {
-            if (bebidaAtualizada.getPreco().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
+        if (bebidaAtualizada.getValor() != null) {
+            if (bebidaAtualizada.getValor().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
                 throw new RuntimeException("O preço da bebida deve ser maior que zero.");
             }
-            bebidaExistente.setPreco(bebidaAtualizada.getPreco());
+            bebidaExistente.setValor(bebidaAtualizada.getValor());
         }
 
         if (bebidaAtualizada.getDescricao() != null && !bebidaAtualizada.getDescricao().trim().isEmpty()) {

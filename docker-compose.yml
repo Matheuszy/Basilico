@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: basilico-db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"

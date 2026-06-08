@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuarios")
 @Getter
 @Setter
 public class Usuario implements UserDetails {

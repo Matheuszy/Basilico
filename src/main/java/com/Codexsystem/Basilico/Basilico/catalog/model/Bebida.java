@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
-@Table(name = "bebida")
+@Table(name = "bebidas")
 public class Bebida {
 
     @Id
@@ -23,12 +23,12 @@ public class Bebida {
     private String descricao;
 
     @Column(nullable = false)
-    private BigDecimal preco;
+    private BigDecimal valor;
 
     public Bebida() {}
-    public Bebida(String nome, String descricao, BigDecimal preco) {
+    public Bebida(String nome, String descricao, BigDecimal valor) {
         this.nome = nome;
         this.descricao = descricao;
-        this.preco = preco;
+        this.valor = valor;
     }
 }

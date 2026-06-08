@@ -111,7 +111,7 @@ src/main/java/com/codexsystem/basilico/
 └── shared/                     # Código reutilizável
 ├── exception/
 ├── mapper/
-└── utils/ation/ ├── V1_create_table_bebida.sql ├── V2_create_table_refeicao.sql ├── V3_create_table_usuario.sql ├── V4_create_table_cliente.sql ├── V5_create_table_pedido.sql └── V6_add_role_to_usuario.sql
+└── utils/ation/ ├── V1__create_table_bebida.sql ├── V2__create_table_refeicao.sql ├── V3__create_table_usuario.sql ├── V4__create_table_cliente.sql ├── V5__create_table_pedido.sql └── V6_add_role_to_usuario.sql
 
 ---
 

@@ -34,4 +34,5 @@ build/
 
 ### Spring Boot Config ###
 src/main/resources/templates/application.properties
-src/main/resources/application.yml
+
+*.env*

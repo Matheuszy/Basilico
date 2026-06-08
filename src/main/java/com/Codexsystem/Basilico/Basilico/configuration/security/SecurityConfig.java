@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
-                        .requestMatchers("/user").permitAll()
+                        .requestMatchers("/user", "/user/create").permitAll() //adicionado "/user/create" no permitAll
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/refeicao/criar/refeicao").hasRole("ADMIN")
                         .requestMatchers("/refeicao/obter/refeicao").permitAll()
