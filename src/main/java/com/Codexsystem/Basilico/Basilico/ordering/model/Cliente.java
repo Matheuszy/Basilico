@@ -28,7 +28,13 @@ public class Cliente implements UserDetails {
     private String telefone;
 
     @Column(nullable = false)
+    private String cpf;
+
+    @Column(nullable = false)
     private String senha;
+
+    @Embedded
+    private Endereco endereco;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Pedido> pedido = new ArrayList<>();
@@ -40,11 +46,13 @@ public class Cliente implements UserDetails {
     @Column(nullable = false)
     private Role role = Role.CLIENTE;
 
-    public Cliente(String nome, String email, String telefone, String senha) {
+    public Cliente(String nome, String email, String telefone, String cpf, String senha, Endereco endereco) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
+        this.cpf = cpf;
         this.senha = senha;
+        this.endereco = endereco;
     }
 
     public Cliente() {

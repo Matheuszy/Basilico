@@ -10,7 +10,11 @@ public record ClienteRequestDto(
         String email,
         @NotEmpty(message = "Telefone não pode estar vazio")
         String telefone,
+        @NotEmpty(message = "CPF não pode estar vazio")
+        String cpf,
         @NotEmpty(message = "Senha não pode estar vazia")
-        String senha
+        String senha,
+        @NotEmpty(message = "Senha não pode estar vazia")
+        EnderecoDto endereco
 ) {
 }
