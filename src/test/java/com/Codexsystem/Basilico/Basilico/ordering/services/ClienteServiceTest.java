@@ -59,6 +59,7 @@ class ClienteServiceTest {
                             "senha2",
                             endereco);
             clienteEsperado.setId(1);
+            clienteEsperado.setAtivo(true);
 
             doReturn(clienteEsperado)
                     .when(clienteRepository)
