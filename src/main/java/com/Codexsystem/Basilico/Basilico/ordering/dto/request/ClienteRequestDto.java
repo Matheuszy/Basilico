@@ -1,5 +1,6 @@
 package com.Codexsystem.Basilico.Basilico.ordering.dto.request;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,7 +15,8 @@ public record ClienteRequestDto(
         String cpf,
         @NotEmpty(message = "Senha não pode estar vazia")
         String senha,
-        @NotEmpty(message = "Senha não pode estar vazia")
+        @NotNull(message = "Endereco é obrigatório")
+        @Valid
         EnderecoDto endereco
 ) {
 }

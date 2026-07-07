@@ -4,6 +4,7 @@ import com.Codexsystem.Basilico.Basilico.ordering.dto.request.ClienteRequestDto;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Cliente;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Endereco;
 import com.Codexsystem.Basilico.Basilico.ordering.services.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,8 @@ public class ClienteController {
     }
 
     @PostMapping("/newclient")
-    public void criarCliente(@RequestBody ClienteRequestDto cliente){
+    public ResponseEntity<Cliente> criarCliente(@RequestBody @Valid ClienteRequestDto cliente) {
+
         Endereco endereco = new Endereco(
                 cliente.endereco().rua(),
                 cliente.endereco().numero(),
@@ -33,8 +35,19 @@ public class ClienteController {
                 cliente.endereco().estado(),
                 cliente.endereco().cep()
         );
-        Cliente newCliente = new Cliente(cliente.nome(), cliente.email(),cliente.telefone(), cliente.cpf(), cliente.senha(), endereco);
-        ResponseEntity.status(200).body(clienteService.criarCliente(newCliente));
+
+        Cliente novoCliente = new Cliente(
+                cliente.nome(),
+                cliente.email(),
+                cliente.telefone(),
+                cliente.cpf(),
+                cliente.senha(),
+                endereco
+        );
+
+        Cliente clienteSalvo = clienteService.criarCliente(novoCliente);
+
+        return ResponseEntity.status(201).body(clienteSalvo);
     }
 
     @DeleteMapping("/deleteclient")
