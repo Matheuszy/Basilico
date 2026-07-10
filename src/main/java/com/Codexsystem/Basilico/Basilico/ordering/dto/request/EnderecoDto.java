@@ -7,7 +7,6 @@ public record EnderecoDto(
         String rua,
         @NotEmpty(message = "O campo não pode estar vazio")
         String numero,
-        @NotEmpty(message = "O campo não pode estar vazio")
         String complemento,
         @NotEmpty(message = "O campo não pode estar vazio")
         String bairro,

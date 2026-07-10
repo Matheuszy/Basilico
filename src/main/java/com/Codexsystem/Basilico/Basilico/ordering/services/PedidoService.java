@@ -27,6 +27,13 @@ public class PedidoService {
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
+        if ((bebida == null || bebida.isEmpty())
+                && (refeicao == null || refeicao.isEmpty())) {
+
+            throw new IllegalArgumentException(
+                    "O pedido deve conter pelo menos uma bebida ou uma refeição.");
+        }
+
         Pedido pedido = new Pedido();
         pedido.setRefeicoes(refeicao);
         pedido.setBebidas(bebida);

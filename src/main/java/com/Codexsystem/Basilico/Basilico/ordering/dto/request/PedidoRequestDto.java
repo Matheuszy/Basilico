@@ -10,10 +10,6 @@ import java.util.List;
 public record PedidoRequestDto(
         @NotNull
         Integer clienteId,
-
-        @NotEmpty
         List<Bebida> bebidas,
-
-        @NotEmpty
         List<Refeicao> refeicoes
 ) { }
