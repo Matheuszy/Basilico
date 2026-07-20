@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PedidoService {
@@ -24,12 +25,14 @@ public class PedidoService {
 
     @Transactional
     public Pedido criarPedido(Integer clienteId, List<Bebida> bebida, List<Refeicao> refeicao) {
+
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-        if ((bebida == null || bebida.isEmpty())
-                && (refeicao == null || refeicao.isEmpty())) {
+        bebida = Objects.requireNonNullElse(bebida, List.of());
+        refeicao = Objects.requireNonNullElse(refeicao, List.of());
 
+        if (bebida.isEmpty() && refeicao.isEmpty()) {
             throw new IllegalArgumentException(
                     "O pedido deve conter pelo menos uma bebida ou uma refeição.");
         }
