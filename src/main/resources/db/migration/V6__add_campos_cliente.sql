@@ -1,0 +1,23 @@
+ALTER TABLE clientes
+    ADD COLUMN cpf VARCHAR(14);
+
+ALTER TABLE clientes
+    ADD COLUMN rua VARCHAR(255);
+
+ALTER TABLE clientes
+    ADD COLUMN numero VARCHAR(20);
+
+ALTER TABLE clientes
+    ADD COLUMN complemento VARCHAR(255);
+
+ALTER TABLE clientes
+    ADD COLUMN bairro VARCHAR(255);
+
+ALTER TABLE clientes
+    ADD COLUMN cidade VARCHAR(255);
+
+ALTER TABLE clientes
+    ADD COLUMN estado VARCHAR(2);
+
+ALTER TABLE clientes
+    ADD COLUMN cep VARCHAR(10);

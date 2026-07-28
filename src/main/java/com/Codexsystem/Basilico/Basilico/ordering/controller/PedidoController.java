@@ -5,6 +5,7 @@ import com.Codexsystem.Basilico.Basilico.ordering.dto.response.PedidoResponseDto
 import com.Codexsystem.Basilico.Basilico.ordering.model.Pedido;
 import com.Codexsystem.Basilico.Basilico.ordering.repository.PedidoRepository;
 import com.Codexsystem.Basilico.Basilico.ordering.services.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class PedidoController {
 
     @PostMapping("/create/order")
     @PreAuthorize("hasRole('USER')")
-    public PedidoResponseDto createPedido(@RequestBody PedidoRequestDto dto) {
+    public PedidoResponseDto createPedido(@RequestBody @Valid PedidoRequestDto dto) {
         Pedido pedidoSalvo = pedidoService.criarPedido(
                 dto.clienteId(),
                 dto.bebidas(),

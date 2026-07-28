@@ -1,6 +1,7 @@
 package com.Codexsystem.Basilico.Basilico.ordering.services;
 
 import com.Codexsystem.Basilico.Basilico.ordering.model.Cliente;
+import com.Codexsystem.Basilico.Basilico.ordering.model.Endereco;
 import com.Codexsystem.Basilico.Basilico.ordering.repository.ClienteRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -32,12 +33,33 @@ class ClienteServiceTest {
         @DisplayName("Deve criar um cliente com sucesso")
         void deveCriarClienteComSucesso() {
 
+            Endereco endereco = new Endereco(
+                    "Rua b",
+                    "1234",
+                    "casa 34",
+                    "Sítio",
+                    "São Paulo",
+                    "SP",
+                    "01000-000"
+            );
+
             Cliente clienteInput =
-                    new Cliente("Joao", "joaozinho@gmail.com", "1398888", "alolou");
+                    new Cliente("Joao",
+                            "joaozinho@gmail.com",
+                            "1398888",
+                            "11111111",
+                            "senha2",
+                            endereco);
 
             Cliente clienteEsperado =
-                    new Cliente("Joao", "joaozinho@gmail.com", "1398888", "alolou");
+                    new Cliente("Joao",
+                            "joaozinho@gmail.com",
+                            "1398888",
+                            "11111111",
+                            "senha2",
+                            endereco);
             clienteEsperado.setId(1);
+            clienteEsperado.setAtivo(true);
 
             doReturn(clienteEsperado)
                     .when(clienteRepository)
@@ -65,12 +87,32 @@ class ClienteServiceTest {
         @DisplayName("Deve listar todos os clientes com sucesso")
         void deveListarClientesComSucesso() {
 
+            Endereco endereco = new Endereco(
+                    "Rua A",
+                    "123",
+                    "casa 3",
+                    "Centro",
+                    "São Paulo",
+                    "SP",
+                    "01000-000"
+            );
+
             Cliente cliente1 =
-                    new Cliente("Joao", "joao@gmail.com", "1111", "senha");
+                    new Cliente(
+                            "Joao",
+                            "joao@gmail.com",
+                            "1111",
+                            "12345678900",
+                            "senha",
+                            endereco
+                    );
             cliente1.setId(1);
 
             Cliente cliente2 =
-                    new Cliente("Maria", "maria@gmail.com", "2222", "senha");
+                    new Cliente("Maria",
+                            "maria@gmail.com",
+                            "2222", "12345678900",
+                            "senha", endereco);
             cliente2.setId(2);
 
             var listaEsperada = List.of(cliente1, cliente2);
