@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.opentest4j.AssertionFailedError;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -105,6 +106,23 @@ public class PedidoServiceTest {
 
 
     }
+
+    @Test
+    public void naoDeveCancelarPedido(){
+        Long pedidoId = 1L;
+        Pedido pedido = new Pedido();
+        pedido.setId(pedidoId);
+        pedido.setStatusPedido(StatusPedido.ENTREGUE);
+
+        Mockito.when(pedidoRepository.findById(pedidoId)).thenReturn(Optional.of(pedido));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> pedidoService.cancelarPedido(pedidoId));
+        assertEquals("Pedido já está foi entregue", exception.getMessage());
+
+        Mockito.verify(pedidoRepository, Mockito.never()).save(Mockito.any(Pedido.class));
+
+    }
+
     @Test
     public void deveRetornarPedido(){
         Long pedidoId = 1L;
@@ -119,4 +137,5 @@ public class PedidoServiceTest {
 
         Mockito.verify(pedidoRepository).findById(pedidoId);
     }
+
 }
