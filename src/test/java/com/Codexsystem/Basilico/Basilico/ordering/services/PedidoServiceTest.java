@@ -138,4 +138,18 @@ public class PedidoServiceTest {
         Mockito.verify(pedidoRepository).findById(pedidoId);
     }
 
+    @Test
+    public void naoDeveRetornarPedidoQuandoIdNaoExistir(){
+        Long pedidoId = 1L;
+        Pedido pedido = new Pedido();
+        pedido.setId(pedidoId);
+
+        Mockito.when(pedidoRepository.findById(pedidoId)).thenReturn(Optional.empty());
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> pedidoService.buscarPedidoPorId(pedidoId));
+
+        assertEquals("Pedido não encontrado", exception.getMessage());
+
+        Mockito.verify(pedidoRepository).findById(pedidoId);
+    }
+
 }
