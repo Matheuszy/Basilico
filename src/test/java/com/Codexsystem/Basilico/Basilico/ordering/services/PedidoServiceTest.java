@@ -152,4 +152,39 @@ public class PedidoServiceTest {
         Mockito.verify(pedidoRepository).findById(pedidoId);
     }
 
+    @Test
+    public void deveListarPedidosDoCliente(){
+        Integer clienteId = 1;
+        Cliente cliente = new Cliente();
+        cliente.setId(clienteId);
+        Mockito.when(pedidoRepository.findPedidosPorClienteId(clienteId)).thenReturn(List.of(new Pedido(), new Pedido()));
+
+        List<Pedido> resultadoEsoerado = pedidoService.listarPedidosDoCliente(clienteId);
+
+        assertAll(
+                () -> assertNotNull(resultadoEsoerado),
+                () -> assertEquals(2, resultadoEsoerado.size())
+        );
+        Mockito.verify(pedidoRepository).findPedidosPorClienteId(clienteId);
+
+    }
+
+    @Test
+    public void naoDeveListarPedidosDoClienteNaoExistir(){
+        Integer clienteId = 1;
+        Cliente cliente = new Cliente();
+        cliente.setId(clienteId);
+
+        Mockito.when(pedidoRepository.findPedidosPorClienteId(clienteId)).thenReturn(List.of());
+
+        List<Pedido> resultadoEsperado = pedidoService.listarPedidosDoCliente(clienteId);
+
+        assertAll(
+                () -> assertNotNull(resultadoEsperado),
+                () -> assertTrue(resultadoEsperado.isEmpty())
+        );
+        Mockito.verify(pedidoRepository).findPedidosPorClienteId(clienteId);
+
+    }
+
 }
