@@ -83,11 +83,6 @@ public class PedidoServiceTest {
 
 
 
-
-
-
-
-
     }
 
     @Test
@@ -109,5 +104,19 @@ public class PedidoServiceTest {
         Mockito.verify(pedidoRepository).save(pedido);
 
 
+    }
+    @Test
+    public void deveRetornarPedido(){
+        Long pedidoId = 1L;
+        Pedido pedido = new Pedido();
+        pedido.setId(pedidoId);
+
+        Mockito.when(pedidoRepository.findById(pedidoId)).thenReturn(Optional.of(pedido));
+
+        Pedido pedidoEsperado = pedidoService.buscarPedidoPorId(pedidoId);
+
+        assertEquals(pedidoEsperado, pedido);
+
+        Mockito.verify(pedidoRepository).findById(pedidoId);
     }
 }
