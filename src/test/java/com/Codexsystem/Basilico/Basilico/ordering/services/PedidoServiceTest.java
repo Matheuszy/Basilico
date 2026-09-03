@@ -8,6 +8,7 @@ import com.Codexsystem.Basilico.Basilico.ordering.model.Endereco;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Pedido;
 import com.Codexsystem.Basilico.Basilico.ordering.repository.ClienteRepository;
 import com.Codexsystem.Basilico.Basilico.ordering.repository.PedidoRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -185,6 +186,22 @@ public class PedidoServiceTest {
         );
         Mockito.verify(pedidoRepository).findPedidosPorClienteId(clienteId);
 
+    }
+
+    @Test
+    public void deveBuscarPedidoPorCliente(){
+        Pedido pedido = new Pedido();
+        Cliente cliente = new Cliente();
+        pedido.setCliente(cliente);
+        pedido.setId(1L);
+        cliente.setId(1);
+
+        Mockito.when(pedidoRepository.findPedidoCompletoPorIdECliente(1L, 1)).thenReturn(Optional.of(pedido));
+        Pedido pedidoEncontrado = pedidoService.buscarPedidoDoCliente(1L, 1);
+
+        Assertions.assertNotNull(pedidoEncontrado);
+
+        Mockito.verify(pedidoRepository).findPedidoCompletoPorIdECliente(1L, 1);
     }
 
 }
