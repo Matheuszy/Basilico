@@ -95,6 +95,9 @@ public class PedidoService {
     }
 
     public List<Pedido> listarPedidosDoCliente(Integer clienteId) {
+        if(pedidoRepository.findPedidosPorClienteId(clienteId).isEmpty()){
+            throw new RuntimeException("Nenhum pedido encontrado para o cliente com ID: " + clienteId);
+        }
         return pedidoRepository.findPedidosPorClienteId(clienteId);
     }
 }
