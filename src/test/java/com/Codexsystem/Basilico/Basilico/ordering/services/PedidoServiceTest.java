@@ -171,19 +171,22 @@ public class PedidoServiceTest {
     }
 
     @Test
-    public void naoDeveListarPedidosDoClienteNaoExistir(){
+    public void naoDeveListarPedidosDoClienteNaoExistir() {
         Integer clienteId = 1;
-        Cliente cliente = new Cliente();
-        cliente.setId(clienteId);
 
-        Mockito.when(pedidoRepository.findPedidosPorClienteId(clienteId)).thenReturn(List.of());
+        Mockito.when(pedidoRepository.findPedidosPorClienteId(clienteId))
+                .thenReturn(List.of());
 
-        List<Pedido> resultadoEsperado = pedidoService.listarPedidosDoCliente(clienteId);
-
-        assertAll(
-                () -> assertNotNull(resultadoEsperado),
-                () -> assertTrue(resultadoEsperado.isEmpty())
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> pedidoService.listarPedidosDoCliente(clienteId)
         );
+
+        assertEquals(
+                "Nenhum pedido encontrado para o cliente com ID: " + clienteId,
+                exception.getMessage()
+        );
+
         Mockito.verify(pedidoRepository).findPedidosPorClienteId(clienteId);
 
     }
