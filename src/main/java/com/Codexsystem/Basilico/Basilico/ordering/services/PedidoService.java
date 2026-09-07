@@ -1,6 +1,7 @@
 package com.Codexsystem.Basilico.Basilico.ordering.services;
 
 import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
+import com.Codexsystem.Basilico.Basilico.exceptions.ordering.ListarPedidosClienteException;
 import com.Codexsystem.Basilico.Basilico.ordering.enums.StatusPedido;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Pedido;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Refeicao;
@@ -99,7 +100,7 @@ public class PedidoService {
         List<Pedido> pedidos = pedidoRepository.findPedidosPorClienteId(clienteId);
 
         if (pedidos.isEmpty()) {
-            throw new RuntimeException(
+            throw new ListarPedidosClienteException(
                     "Nenhum pedido encontrado para o cliente com ID: " + clienteId
             );
         }
