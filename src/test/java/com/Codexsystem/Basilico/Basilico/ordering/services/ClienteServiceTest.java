@@ -1,8 +1,10 @@
 package com.Codexsystem.Basilico.Basilico.ordering.services;
 
+import com.Codexsystem.Basilico.Basilico.ordering.enums.StatusCliente;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Cliente;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Endereco;
 import com.Codexsystem.Basilico.Basilico.ordering.repository.ClienteRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -59,7 +61,7 @@ class ClienteServiceTest {
                             "senha2",
                             endereco);
             clienteEsperado.setId(1);
-            clienteEsperado.setAtivo(true);
+            clienteEsperado.setStatus(StatusCliente.ATIVO);
 
             doReturn(clienteEsperado)
                     .when(clienteRepository)
@@ -72,7 +74,7 @@ class ClienteServiceTest {
                     () -> assertEquals(1, output.getId()),
                     () -> assertEquals("Joao", output.getNome()),
                     () -> assertEquals("joaozinho@gmail.com", output.getEmail()),
-                    () -> assertTrue(output.getAtivo())
+                    () -> assertEquals(StatusCliente.ATIVO, output.getStatus())
             );
 
             verify(clienteRepository, times(1))
@@ -132,19 +134,6 @@ class ClienteServiceTest {
             verify(clienteRepository, times(1)).findAll();
         }
     }
-
-    @Nested
-    class DeletarCliente {
-
-        @Test
-        @DisplayName("Deve deletar um cliente com sucesso")
-        void deveDeletarClienteComSucesso() {
-
-            clienteService.deletarCliente(1);
-
-            verify(clienteRepository, times(1))
-                    .deleteById(1);
-        }
-    }
+    
 
 }
