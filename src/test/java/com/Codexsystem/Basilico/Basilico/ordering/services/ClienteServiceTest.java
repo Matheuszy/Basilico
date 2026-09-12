@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -134,6 +135,45 @@ class ClienteServiceTest {
             verify(clienteRepository, times(1)).findAll();
         }
     }
-    
+
+    @Test
+    @DisplayName("Deve deletar cliente com sucesso")
+    void deveDeletarClienteComSucesso() {
+
+
+        Endereco endereco = new Endereco(
+                "Rua b",
+                "1234",
+                "casa 34",
+                "Sítio",
+                "São Paulo",
+                "SP",
+                "01000-000"
+        );
+        Cliente cliente = new Cliente(
+                "Joao",
+                "joao@gmail.com",
+                "1111",
+                "12345678900",
+                "senha",
+                endereco
+        );
+        cliente.setId(1);
+        cliente.setStatus(StatusCliente.ATIVO);
+
+
+        when(clienteRepository.findById(1)).thenReturn(Optional.of(cliente));
+        when(clienteRepository.save(any(Cliente.class))).thenReturn(cliente);
+
+        clienteService.deletarCliente(1);
+
+        assertAll(
+                () -> assertEquals(StatusCliente.INATIVO, cliente.getStatus()),
+                () -> verify(clienteRepository, times(1)).findById(1),
+                () -> verify(clienteRepository, times(1)).save(cliente)
+        );
+    }
+
+
 
 }
