@@ -1,6 +1,7 @@
 package com.Codexsystem.Basilico.Basilico.ordering.model;
 
 import com.Codexsystem.Basilico.Basilico.configuration.role.Role;
+import com.Codexsystem.Basilico.Basilico.ordering.enums.StatusCliente;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,6 +51,10 @@ public class Cliente implements UserDetails {
     @Column(nullable = false)
     private Role role = Role.CLIENTE;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusCliente status = StatusCliente.ATIVO;
+
     public Cliente(String nome, String email, String telefone, String cpf, String senha, Endereco endereco) {
         this.nome = nome;
         this.email = email;
@@ -57,6 +62,7 @@ public class Cliente implements UserDetails {
         this.cpf = cpf;
         this.senha = senha;
         this.endereco = endereco;
+        this.status = StatusCliente.ATIVO;
     }
 
     public Cliente() {

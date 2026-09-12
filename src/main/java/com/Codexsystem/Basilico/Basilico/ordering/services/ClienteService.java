@@ -1,5 +1,6 @@
 package com.Codexsystem.Basilico.Basilico.ordering.services;
 
+import com.Codexsystem.Basilico.Basilico.ordering.enums.StatusCliente;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Cliente;
 import com.Codexsystem.Basilico.Basilico.ordering.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,15 @@ public class ClienteService  {
     }
 
     public void deletarCliente(Integer id) {
-        clienteRepository.deleteById(id);
+        var cliente = clienteRepository.findById(id);
+
+        if (cliente.isPresent()) {
+            cliente.get().setStatus(StatusCliente.INATIVO);
+            clienteRepository.save(cliente.get());
+        } else {
+
+            throw new RuntimeException("Cliente não encontrado");
+        }
     }
 
 }
