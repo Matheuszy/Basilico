@@ -2,6 +2,7 @@ package com.Codexsystem.Basilico.Basilico.ordering.services;
 
 import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
 import com.Codexsystem.Basilico.Basilico.exceptions.ordering.ListarPedidosClienteException;
+import com.Codexsystem.Basilico.Basilico.exceptions.ordering.PedidoNaoEncontradoException;
 import com.Codexsystem.Basilico.Basilico.ordering.enums.StatusPedido;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Pedido;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Refeicao;
@@ -51,7 +52,7 @@ public class PedidoService {
     @Transactional
     public Pedido updateRefeicao(Long pedidoId, List<Refeicao> refeicao) {
         Pedido pedido = pedidoRepository.findById(pedidoId)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+                .orElseThrow(() -> new PedidoNaoEncontradoException("Pedido não encontrado"));
 
         pedido.setRefeicoes(refeicao);
         pedido.calcularValorTotal();
@@ -62,7 +63,7 @@ public class PedidoService {
     @Transactional
     public Pedido updateBebida(Long pedidoId, List<Bebida> bebida) {
         Pedido pedido = pedidoRepository.findById(pedidoId)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+                .orElseThrow(() -> new PedidoNaoEncontradoException("Pedido não encontrado"));
 
         pedido.setBebidas(bebida);
         pedido.calcularValorTotal();
@@ -73,7 +74,7 @@ public class PedidoService {
     @Transactional
     public void cancelarPedido(Long pedidoId) {
         Pedido pedido = pedidoRepository.findById(pedidoId)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+                .orElseThrow(() -> new PedidoNaoEncontradoException("Pedido não encontrado"));
 
         if (pedido.getStatusPedido() == StatusPedido.ENTREGUE) {
             throw new RuntimeException("Pedido já está foi entregue");
@@ -87,12 +88,12 @@ public class PedidoService {
 
     public Pedido buscarPedidoPorId(Long pedidoId) {
         return pedidoRepository.findById(pedidoId)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+                .orElseThrow(() -> new PedidoNaoEncontradoException("Pedido não encontrado"));
     }
 
     public Pedido buscarPedidoDoCliente(Long pedidoId, Integer clienteId) {
         return pedidoRepository.findPedidoCompletoPorIdECliente(pedidoId, clienteId)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+                .orElseThrow(() -> new PedidoNaoEncontradoException("Pedido não encontrado"));
     }
 
     public List<Pedido> listarPedidosDoCliente(Integer clienteId) {
