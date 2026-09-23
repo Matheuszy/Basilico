@@ -4,11 +4,6 @@ import com.Codexsystem.Basilico.Basilico.management.model.Usuario;
 import com.Codexsystem.Basilico.Basilico.management.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,11 +25,13 @@ public class UsuarioService {
 
     @Transactional
     public Usuario create(Usuario usuario) {
+
         return usuarioRepository.save(usuario);
     }
 
     @Transactional
     public Usuario update(Usuario usuario) {
+
         return usuarioRepository.save(usuario);
     }
 
