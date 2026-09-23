@@ -6,7 +6,10 @@ import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
 import com.Codexsystem.Basilico.Basilico.catalog.services.BebidaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/bebida")
@@ -16,26 +19,18 @@ public class BebidaController {
     private BebidaService bebidaService;
 
     @PostMapping("/criar/bebida")
-    public BebidaResponseDto criarBebida(@RequestBody BebidaRequestDto bebidaRequestDto) {
-        Bebida newBebida = new Bebida(bebidaRequestDto.nome(), bebidaRequestDto.descricao(),  bebidaRequestDto.valor());
-        bebidaService.criarBebida(newBebida);
-
-        return new BebidaResponseDto(
-                newBebida.getNome(),
-                newBebida.getDescricao()
-        );
+    public ResponseEntity<BebidaResponseDto> criarBebida(@RequestBody BebidaRequestDto bebidaRequestDto) {
+        return bebidaService.criarBebida(bebidaRequestDto);
     }
 
     @GetMapping("/obter/bebida")
-    public BebidaResponseDto obterBebidaPornome(@RequestParam String nome) {
-        var bebida = bebidaService.obterBebidaPorNome(nome).orElse(null);
-        return new BebidaResponseDto(bebida.getNome(), bebida.getDescricao());
+    public ResponseEntity<Optional<BebidaResponseDto>> obterBebidaPornome(@RequestParam String nome) {
+        return bebidaService.obterBebidaPorNome(nome);
     }
 
     @GetMapping("/obter/{id}")
-    public BebidaResponseDto obterBebidaPorId(@PathVariable Long id) {
-        var bebida = bebidaService.obterBebidaPorId(id);
-        return new BebidaResponseDto(bebida.getNome(), bebida.getDescricao());
+    public ResponseEntity<BebidaResponseDto> obterBebidaPorId(@PathVariable Long id) {
+        return bebidaService.obterBebidaPorId(id);
     }
 
     @DeleteMapping("/delete/bebida")
@@ -44,13 +39,11 @@ public class BebidaController {
     }
 
     @PatchMapping("update/bebida")
-    public BebidaResponseDto updateBebida(@RequestParam @Valid Long id, @RequestBody BebidaRequestDto bebidaRequestDto) {
-        var bebida = bebidaService.obterBebidaPorId(id);
-        bebida.setNome(bebidaRequestDto.nome());
-        bebida.setDescricao(bebidaRequestDto.descricao());
-        bebida.setValor(bebidaRequestDto.valor());
-        bebidaService.updateBebida(id, bebida);
-
-        return new BebidaResponseDto(bebida.getNome(), bebida.getDescricao());
+    public ResponseEntity<BebidaResponseDto> updateBebida(Long id,
+                                                          @RequestBody
+                                                          @Valid
+                                                          BebidaRequestDto
+                                                                  bebidaRequestDto) {
+        return bebidaService.updateBebida(id, bebidaRequestDto);
     }
 }

@@ -1,8 +1,12 @@
 package com.Codexsystem.Basilico.Basilico.catalog.services;
 
+import com.Codexsystem.Basilico.Basilico.catalog.dto.request.BebidaRequestDto;
+import com.Codexsystem.Basilico.Basilico.catalog.dto.response.BebidaResponseDto;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
 import com.Codexsystem.Basilico.Basilico.catalog.repository.BebidaRepository;
+import com.Codexsystem.Basilico.Basilico.mapper.catalog.BebidaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,58 +16,68 @@ public class BebidaService {
     @Autowired
     private BebidaRepository bebidaRepository;
 
-    public Bebida criarBebida(Bebida bebida) {
-        if (bebida.getNome() == null || bebida.getNome().trim().isEmpty()) {
+    private BebidaMapper bebidaMapper;
+
+    public ResponseEntity<BebidaResponseDto> criarBebida(BebidaRequestDto bebidaDto) {
+        if (bebidaDto.nome() == null || bebidaDto.nome().trim().isEmpty()) {
             throw new IllegalArgumentException("O nome da bebida não pode ser nulo ou vazio.");
-        } else if (!bebida.getNome().matches("^[a-zA-Z0-9 ]+$")) {
+        } else if (!bebidaDto.nome().matches("^[a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException("O nome da bebida deve conter apenas letras, números e espaços.");
-        } else if (bebida.getValor() == null || bebida.getValor().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
+        } else if (bebidaDto.valor() == null || bebidaDto.valor().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
             throw new RuntimeException("O preço da bebida deve ser maior que zero.");
 
-        } else if (bebida.getDescricao() == null || bebida.getDescricao().trim().isEmpty()) {
+        } else if (bebidaDto.descricao() == null || bebidaDto.descricao().trim().isEmpty()) {
             throw new RuntimeException("A descrição da bebida não pode ser nula ou vazia.");
-
         }
 
-        return bebidaRepository.save(bebida);
+        bebidaRepository.save(bebidaMapper.toEntity(bebidaDto));
+
+        return ResponseEntity.status(201)
+                .body(bebidaMapper.toResponseDto(bebidaMapper.toEntity(bebidaDto)));
+
     }
 
-    public Bebida updateBebida(Long id, Bebida bebidaAtualizada) {
+    public ResponseEntity<BebidaResponseDto> updateBebida(Long id, BebidaRequestDto bebidaAtualizada) {
         Bebida bebidaExistente = bebidaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Bebida com ID " + id + " não encontrada."));
 
-        if (bebidaAtualizada.getNome() != null && !bebidaAtualizada.getNome().trim().isEmpty()) {
-            if (!bebidaAtualizada.getNome().matches("^[a-zA-Z0-9 ]+$")) {
+        if (bebidaAtualizada.nome() != null && !bebidaAtualizada.nome().trim().isEmpty()) {
+            if (!bebidaAtualizada.nome().matches("^[a-zA-Z0-9 ]+$")) {
                 throw new IllegalArgumentException("O nome da bebida deve conter apenas letras, números e espaços.");
             }
-            bebidaExistente.setNome(bebidaAtualizada.getNome());
+            bebidaExistente.setNome(bebidaAtualizada.nome());
         }
 
-        if (bebidaAtualizada.getValor() != null) {
-            if (bebidaAtualizada.getValor().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
+
+        if (bebidaAtualizada.valor() != null) {
+            if (bebidaAtualizada.valor().compareTo(new java.math.BigDecimal("0.00")) <= 0) {
                 throw new RuntimeException("O preço da bebida deve ser maior que zero.");
             }
-            bebidaExistente.setValor(bebidaAtualizada.getValor());
+            bebidaExistente.setValor(bebidaAtualizada.valor());
         }
 
-        if (bebidaAtualizada.getDescricao() != null && !bebidaAtualizada.getDescricao().trim().isEmpty()) {
-            bebidaExistente.setDescricao(bebidaAtualizada.getDescricao());
+        if (bebidaAtualizada.descricao() != null && !bebidaAtualizada.descricao().trim().isEmpty()) {
+            bebidaExistente.setDescricao(bebidaAtualizada.descricao());
         }
 
-        return bebidaRepository.save(bebidaExistente);
+        bebidaRepository.save(bebidaExistente);
+        return ResponseEntity.ok(bebidaMapper.toResponseDto(bebidaExistente));
     }
 
-     public Bebida obterBebidaPorId(Long id) {
-         return bebidaRepository.findById(id).orElse(null);
+     public ResponseEntity<BebidaResponseDto> obterBebidaPorId(Long id) {
+        return ResponseEntity.ok(
+                bebidaMapper.toResponseDto
+                        (bebidaRepository.findById(id)
+                                .orElseThrow(() -> new RuntimeException("Bebida com não encontrada."))));
      }
 
-     public Optional<Bebida> obterBebidaPorNome(String nome) {
+     public ResponseEntity<Optional<BebidaResponseDto>> obterBebidaPorNome(String nome) {
         if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("O nome da bebida não pode ser nulo ou vazio.");
         } else if (!nome.matches("^[a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException("O nome da bebida deve conter apenas letras, números e espaços.");
         }
-        return bebidaRepository.findBebidaByNome(nome);
+        return ResponseEntity.ok(bebidaRepository.findBebidaByNome(nome).map(bebidaMapper::toResponseDto));
      }
 
      public void deletarBebida(Long id) {

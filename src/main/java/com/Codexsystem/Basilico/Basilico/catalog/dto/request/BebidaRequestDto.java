@@ -1,7 +1,6 @@
 package com.Codexsystem.Basilico.Basilico.catalog.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
