@@ -1,7 +1,7 @@
-package com.Codexsystem.Basilico.Basilico.exceptions.treatments;
+package com.Codexsystem.Basilico.Basilico.infra.exceptions.treatments;
 
-import com.Codexsystem.Basilico.Basilico.exceptions.ordering.ListarPedidosClienteException;
-import com.Codexsystem.Basilico.Basilico.exceptions.ordering.PedidoNaoEncontradoException;
+import com.Codexsystem.Basilico.Basilico.infra.exceptions.ordering.ListarPedidosClienteException;
+import com.Codexsystem.Basilico.Basilico.infra.exceptions.ordering.PedidoNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
