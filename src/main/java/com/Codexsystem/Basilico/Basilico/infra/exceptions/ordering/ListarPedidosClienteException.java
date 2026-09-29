@@ -1,4 +1,4 @@
-package com.Codexsystem.Basilico.Basilico.exceptions.ordering;
+package com.Codexsystem.Basilico.Basilico.infra.exceptions.ordering;
 
 public class ListarPedidosClienteException extends RuntimeException {
 
