@@ -1,8 +1,8 @@
 package com.Codexsystem.Basilico.Basilico.ordering.services;
 
 import com.Codexsystem.Basilico.Basilico.catalog.model.Bebida;
-import com.Codexsystem.Basilico.Basilico.exceptions.ordering.ListarPedidosClienteException;
-import com.Codexsystem.Basilico.Basilico.exceptions.ordering.PedidoNaoEncontradoException;
+import com.Codexsystem.Basilico.Basilico.infra.exceptions.ordering.ListarPedidosClienteException;
+import com.Codexsystem.Basilico.Basilico.infra.exceptions.ordering.PedidoNaoEncontradoException;
 import com.Codexsystem.Basilico.Basilico.ordering.enums.StatusPedido;
 import com.Codexsystem.Basilico.Basilico.ordering.model.Pedido;
 import com.Codexsystem.Basilico.Basilico.catalog.model.Refeicao;
